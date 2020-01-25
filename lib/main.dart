@@ -1,15 +1,47 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Column(
-  children: <Widget>[
-    Text('Deliver features faster'),
-    Text('Craft beautiful UIs'),
-    Expanded(
-      child: FittedBox(
-        fit: BoxFit.contain, // otherwise the logo will be tiny
-        child: const FlutterLogo(),
-      ),
-    ),
-  ],
-));
+void main() => runApp(MaterialApp(
+        home: Scaffold(
+      body: ListaTransferencia(),
 
+      appBar: AppBar(title: Text('Transferências')),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+      ),
+    )));
+
+class ListaTransferencia extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ItemTransferencia(Transferencia(100.00, 1000)),
+        ItemTransferencia(Transferencia(100.00, 2000))
+      ],
+    );
+  }
+}
+
+class ItemTransferencia extends StatelessWidget {
+  final Transferencia _transferencia;
+  
+  ItemTransferencia(this._transferencia);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: ListTile(
+      leading: Icon(Icons.monetization_on),
+      title: Text( _transferencia.valor.toString() ),
+      subtitle: Text( _transferencia.numeroConta.toString() ),
+    ));
+  }
+}
+
+class Transferencia {
+  final double valor;
+  final int numeroConta;
+
+  Transferencia( this.valor, this.numeroConta );
+
+}
